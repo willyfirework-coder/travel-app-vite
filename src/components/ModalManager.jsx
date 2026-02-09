@@ -1,9 +1,10 @@
 // src/components/ModalManager.jsx
 import TripManager from './TripManager'; // 確保這個元件存在！
 
-export default function ModalManager({ 
-  activeModal, setActiveModal, data, setData, tempData, 
+export default function ModalManager({
+  activeModal, setActiveModal, data, setData, tempData,
   handleAddItem, handleImport, handleChangeImage, handleHeroUpload,
+  handleItemImageUpload, // 新增：處理行程項目圖片上傳
   // 接收 App 傳來的旅程管理 Props
   allTrips, currentTripId, handleSwitchTrip, handleCreateTrip, handleDeleteTrip
 }) {
@@ -16,10 +17,10 @@ export default function ModalManager({
   return (
     <div className="modal-overlay" onClick={closeModal}>
       <div className="modal">
-        
+
         {/* === A. 旅程管理器 === */}
         {activeModal === 'tripManager' && (
-          <TripManager 
+          <TripManager
             allTrips={allTrips}
             currentTripId={currentTripId}
             handleSwitchTrip={handleSwitchTrip}
@@ -83,6 +84,20 @@ export default function ModalManager({
         {activeModal === 'img' && (
           <>
             <h3>更換圖片</h3>
+
+            {/* 🌟 新增：上傳按鈕區塊 */}
+            <label className="btn-confirm" style={{ display: 'block', textAlign: 'center', marginBottom: '15px', background: '#888', cursor: 'pointer' }}>
+              📂 從相簿上傳
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: 'none' }}
+                onChange={(e) => handleItemImageUpload(e.target.files[0])}
+              />
+            </label>
+
+            <p style={{ textAlign: 'center', color: '#ccc', margin: '5px' }}>或貼上網址</p>
+
             <form onSubmit={(e) => { e.preventDefault(); handleChangeImage(e.target.url.value); }}>
               <input name="url" type="text" placeholder="https://..." autoFocus />
               <div className="modal-btns">
@@ -97,10 +112,10 @@ export default function ModalManager({
         {activeModal === 'title' && (
           <>
             <h3>編輯標題</h3>
-            <form onSubmit={(e) => { 
-              e.preventDefault(); 
+            <form onSubmit={(e) => {
+              e.preventDefault();
               setData(prev => ({ ...prev, [tempData.type]: e.target.val.value }));
-              setActiveModal(null); 
+              setActiveModal(null);
             }}>
               <input name="val" type="text" defaultValue={tempData.val} autoFocus />
               <div className="modal-btns">
@@ -120,7 +135,7 @@ export default function ModalManager({
               <input type="file" accept="image/*" style={{ display: 'none' }} onChange={(e) => handleHeroUpload(e.target.files[0])} />
             </label>
             <p style={{ textAlign: 'center', color: '#ccc', margin: '5px' }}>或</p>
-            <form onSubmit={(e) => { e.preventDefault(); setData(prev => ({...prev, heroImg: e.target.url.value})); setActiveModal(null); }}>
+            <form onSubmit={(e) => { e.preventDefault(); setData(prev => ({ ...prev, heroImg: e.target.url.value })); setActiveModal(null); }}>
               <input name="url" type="text" placeholder="貼上圖片網址..." />
               <div className="modal-btns">
                 <button type="button" className="btn-cancel" onClick={() => setActiveModal(null)}>取消</button>
