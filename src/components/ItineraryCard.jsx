@@ -42,7 +42,7 @@ export default function ItineraryCard({ data, selectedRouteItems, handleRouteChe
             <p>{item.desc || '暫無備註'}</p>
             <div className="card-footer">
               <button className="btn-text" onClick={() => handleDeleteItem(index)}>刪除</button>
-              <a href={`https://www.google.com/maps/search/?api=1&query=$${encodeURIComponent(item.title)}`} target="_blank" rel="noreferrer" className="btn-text" style={{ color: 'var(--primary)' }}>地圖 ➤</a>
+              <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.title)}`} target="_blank" rel="noreferrer" className="btn-text" style={{ color: 'var(--primary)' }}>地圖 ➤</a>
             </div>
           </div>
         </div>
