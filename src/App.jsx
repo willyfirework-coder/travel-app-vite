@@ -292,7 +292,7 @@ function App() {
     const origin = points[0];
     const dest = points[points.length - 1];
     const waypoints = points.slice(1, -1).join('|');
-    return `https://www.google.com/maps/dir/?api=1&origin=$${origin}&destination=${dest}&waypoints=${waypoints}&travelmode=driving`;
+    return `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}&waypoints=${waypoints}&travelmode=driving`;
   };
 
   // ================= 渲染畫面 =================
